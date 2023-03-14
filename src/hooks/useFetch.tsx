@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig } from "axios";
-import { useCallback, useState } from "react";
+import { useState } from "react";
 
 const axiosContent = axios.create({ baseURL: "http://localhost:8000/api/" });
 
@@ -10,7 +10,6 @@ interface IUseFetch<T> {
 }
 const useFetch = <T,>(): IUseFetch<T> => {
   const [response, setResponse] = useState(null);
-  const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const fetchData = async (
