@@ -8,6 +8,7 @@ import Paper from "@mui/material/Paper";
 import { useCallback, useEffect, useState } from "react";
 import IRestaurante from "../../../interfaces/IRestaurante";
 import axios from "axios";
+import { Link } from "@mui/material";
 const RestaurantAdmin = () => {
   const [restaurants, setRestaurants] = useState<IRestaurante[]>([]);
 
@@ -34,6 +35,13 @@ const RestaurantAdmin = () => {
             restaurants.map((restaurant) => (
               <TableRow key={restaurant.id}>
                 <TableCell>{restaurant.nome}</TableCell>
+                <TableCell>
+                  [
+                  <Link href={`/admin/restaurants/${restaurant.id}`}>
+                    Editar
+                  </Link>
+                  ]
+                </TableCell>
               </TableRow>
             ))}
         </TableBody>
