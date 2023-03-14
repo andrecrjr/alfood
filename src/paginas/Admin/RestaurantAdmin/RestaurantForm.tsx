@@ -7,27 +7,29 @@ import IRestaurante from "../../../interfaces/IRestaurante";
 const RestaurantForm = () => {
   const [nameRestaurant, setRestaurantName] = useState("");
   const params = useParams();
-  const { fetchData } = useFetch(
-    `${params?.id ? "put" : "post"}`,
-    `v2/restaurantes/${params?.id ? `${params.id}/` : ""}`
-  );
-  const { data: restauranteEdition, fetchData: getRestaurant } =
-    useFetch<IRestaurante>("get", `v2/restaurantes/${params?.id}/`);
+  // const { fetchData } = useFetch(
+  //   `${params?.id ? "put" : "post"}`,
+  //   `v2/restaurantes/${params?.id ? `${params.id}/` : ""}`
+  // );
+  const { response: restauranteEdition, fetchData: getRestaurant } =
+    useFetch<IRestaurante>();
 
   useEffect(() => {
     if (params?.id) {
-      getRestaurant({});
+      getRestaurant(`v2/restaurantes/${params?.id}/`);
       console.log(restauranteEdition);
     }
   }, [params.id]);
 
-  useEffect(() => {
-    restauranteEdition?.nome && setRestaurantName(restauranteEdition.nome);
-  }, [restauranteEdition]);
-
   const sendForm = async (name: string) => {
     try {
-      await fetchData({ bodyData: { nome: name } });
+      await getRestaurant(
+        `v2/restaurantes/${params?.id ? `${params.id}/` : ""}`,
+        {
+          method: `${params?.id ? "put" : "post"}`,
+          data: { nome: name },
+        }
+      );
       alert("Restaurante cadastrado com sucesso!");
     } catch (error) {
       alert("Error");
@@ -45,7 +47,7 @@ const RestaurantForm = () => {
         label="Restaurant Name"
         onChange={(e) => setRestaurantName(e.target.value)}
         variant="outlined"
-        value={nameRestaurant}
+        value={nameRestaurant || restauranteEdition?.nome}
       />
       <Button type="submit">Enviar</Button>
     </form>

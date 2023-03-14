@@ -8,6 +8,7 @@ import { useCallback, useEffect, useState } from "react";
 const ListaRestaurantes = () => {
   const [restaurantes, setRestaurants] = useState<IRestaurante[]>([]);
   const [proximaPagina, setProximaPagina] = useState("");
+  
   const fetchData = useCallback(async (apiUrl = "") => {
     const { data } = await axios.get<IPaginacao<IRestaurante>>(
       `${apiUrl || "http://localhost:8000/api/v1/restaurantes/"}`

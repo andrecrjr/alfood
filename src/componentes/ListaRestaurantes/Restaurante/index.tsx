@@ -10,13 +10,10 @@ interface RestauranteProps {
 }
 
 const Restaurante = ({ restaurante }: RestauranteProps) => {
-  const { data, fetchData } = useFetch<IPrato[]>(
-    "get",
-    `v1/restaurantes/${restaurante.id}/pratos/`
-  );
+  const { response: data, fetchData } = useFetch<IPrato[]>();
   useEffect(() => {
-    fetchData({});
-  }, [restaurante.id, fetchData]);
+    fetchData(`v1/restaurantes/${restaurante.id}/pratos/`, { method: "get" });
+  }, [restaurante?.id]);
   return (
     <section className={estilos.Restaurante}>
       <div className={estilos.Titulo}>

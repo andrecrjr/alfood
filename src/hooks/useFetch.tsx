@@ -1,37 +1,34 @@
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 import { useCallback, useState } from "react";
 
 const axiosContent = axios.create({ baseURL: "http://localhost:8000/api/" });
 
-type requestType = "get" | "post" | "put" | "delete";
-const useFetch = <T,>(
-  requestType: requestType,
-  slug?: string
-): {
-  data: T | undefined;
-  fetchData: ({
-    bodyData,
-    slugAlt,
-  }: {
-    bodyData?: object | undefined;
-    slugAlt?: string | undefined;
-  }) => Promise<void>;
-} => {
-  const [data, setNewdata] = useState<T>();
-  const fetchData = useCallback(
-    async ({ bodyData, slugAlt }: { bodyData?: object; slugAlt?: string }) => {
-      const { data } = await axiosContent[requestType]<T>(
-        slugAlt || slug || "",
-        {
-          ...bodyData,
-        }
-      );
-      setNewdata(data);
-    },
-    [slug, requestType]
-  );
+interface IUseFetch<T> {
+  response: T | null;
+  fetchData: (url: string, options?: object) => Promise<void>;
+  isLoading: boolean;
+}
+const useFetch = <T,>(): IUseFetch<T> => {
+  const [response, setResponse] = useState(null);
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-  return { data, fetchData };
+  const fetchData = async (
+    url: string,
+    options: AxiosRequestConfig = { method: "get" }
+  ) => {
+    setIsLoading(true);
+
+    try {
+      const { data } = await axiosContent.request({ ...options, url });
+      setResponse(data);
+      return data;
+    } catch (error) {
+      setIsLoading(false);
+    }
+  };
+
+  return { response, isLoading, fetchData };
 };
 
 export default useFetch;
