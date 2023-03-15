@@ -37,32 +37,34 @@ const RestaurantForm = () => {
     sendForm(nameRestaurant);
   };
   return (
-    <Box
-      sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
-    >
-      <Typography component={"h1"} variant="h6">
-        Formulário de Restaurantes
-      </Typography>
-      <Box component="form" onSubmit={submitForm}>
-        <TextField
-          id="outlined-basic"
-          label="Restaurant Name"
-          onChange={(e) => setRestaurantName(e.target.value)}
-          variant="standard"
-          fullWidth
-          value={nameRestaurant || restauranteEdition?.nome}
-          required
-        />
-        <Button
-          sx={{ marginTop: 1 }}
-          fullWidth
-          variant="outlined"
-          type="submit"
-        >
-          Enviar
-        </Button>
+    <>
+      <Box
+        sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+      >
+        <Typography component={"h1"} variant="h6">
+          Formulário de Restaurantes
+        </Typography>
+        <Box component="form" onSubmit={submitForm}>
+          <TextField
+            id="outlined-basic"
+            label="Restaurant Name"
+            onChange={(e) => setRestaurantName(e.target.value)}
+            variant="standard"
+            fullWidth
+            value={nameRestaurant || restauranteEdition?.nome}
+            required
+          />
+          <Button
+            sx={{ marginTop: 1 }}
+            fullWidth
+            variant="outlined"
+            type="submit"
+          >
+            Enviar
+          </Button>
+        </Box>
       </Box>
-    </Box>
+    </>
   );
 };
 

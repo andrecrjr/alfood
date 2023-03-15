@@ -1,9 +1,8 @@
-import axios from "axios";
 import IRestaurante from "../../interfaces/IRestaurante";
 import { IPaginacao } from "../../interfaces/IPaginacao";
 import style from "./ListaRestaurantes.module.scss";
 import Restaurante from "./Restaurante";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 import useFetch from "../../hooks/useFetch";
 
 const ListaRestaurantes = () => {
