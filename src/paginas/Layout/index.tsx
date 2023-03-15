@@ -26,6 +26,9 @@ export default function Layout({ children }: { children: JSX.Element }) {
                   Create Restaurant
                 </Button>
               </Link>
+              <Link component={RouterLink} to="/admin/plates">
+                <Button sx={{ my: 2, color: "white" }}>Plates</Button>
+              </Link>
             </Box>
           </Toolbar>
         </Container>
