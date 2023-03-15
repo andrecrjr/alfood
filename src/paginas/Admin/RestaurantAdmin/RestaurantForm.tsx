@@ -1,4 +1,4 @@
-import { Button, TextField } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import useFetch from "../../../hooks/useFetch";
 import { useParams } from "react-router-dom";
@@ -7,17 +7,13 @@ import IRestaurante from "../../../interfaces/IRestaurante";
 const RestaurantForm = () => {
   const [nameRestaurant, setRestaurantName] = useState("");
   const params = useParams();
-  // const { fetchData } = useFetch(
-  //   `${params?.id ? "put" : "post"}`,
-  //   `v2/restaurantes/${params?.id ? `${params.id}/` : ""}`
-  // );
+
   const { response: restauranteEdition, fetchData: getRestaurant } =
     useFetch<IRestaurante>();
 
   useEffect(() => {
     if (params?.id) {
       getRestaurant(`v2/restaurantes/${params?.id}/`);
-      console.log(restauranteEdition);
     }
   }, [params.id]);
 
@@ -41,16 +37,32 @@ const RestaurantForm = () => {
     sendForm(nameRestaurant);
   };
   return (
-    <form onSubmit={submitForm}>
-      <TextField
-        id="outlined-basic"
-        label="Restaurant Name"
-        onChange={(e) => setRestaurantName(e.target.value)}
-        variant="outlined"
-        value={nameRestaurant || restauranteEdition?.nome}
-      />
-      <Button type="submit">Enviar</Button>
-    </form>
+    <Box
+      sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+    >
+      <Typography component={"h1"} variant="h6">
+        Formulário de Restaurantes
+      </Typography>
+      <Box component="form" onSubmit={submitForm}>
+        <TextField
+          id="outlined-basic"
+          label="Restaurant Name"
+          onChange={(e) => setRestaurantName(e.target.value)}
+          variant="standard"
+          fullWidth
+          value={nameRestaurant || restauranteEdition?.nome}
+          required
+        />
+        <Button
+          sx={{ marginTop: 1 }}
+          fullWidth
+          variant="outlined"
+          type="submit"
+        >
+          Enviar
+        </Button>
+      </Box>
+    </Box>
   );
 };
 

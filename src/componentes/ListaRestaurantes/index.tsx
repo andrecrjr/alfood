@@ -4,35 +4,32 @@ import { IPaginacao } from "../../interfaces/IPaginacao";
 import style from "./ListaRestaurantes.module.scss";
 import Restaurante from "./Restaurante";
 import { useCallback, useEffect, useState } from "react";
+import useFetch from "../../hooks/useFetch";
 
 const ListaRestaurantes = () => {
-  const [restaurantes, setRestaurants] = useState<IRestaurante[]>([]);
-  const [proximaPagina, setProximaPagina] = useState("");
-  
-  const fetchData = useCallback(async (apiUrl = "") => {
-    const { data } = await axios.get<IPaginacao<IRestaurante>>(
-      `${apiUrl || "http://localhost:8000/api/v1/restaurantes/"}`
-    );
-    setRestaurants(data.results);
-    setProximaPagina(data.next);
+  const { fetchData, response: data } = useFetch<IPaginacao<IRestaurante>>();
+
+  const fetchinData = useCallback(async () => {
+    await fetchData(`v1/restaurantes/`);
   }, []);
 
   const readMore = async () => {
-    fetchData(proximaPagina);
+    data?.next && (await fetchData(data?.next));
   };
+
   useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+    fetchinData();
+  }, [fetchinData]);
 
   return (
     <section className={style.ListaRestaurantes}>
       <h1>
         Os restaurantes mais <em>bacanas</em>!
       </h1>
-      {restaurantes?.map((item: IRestaurante) => (
+      {data?.results?.map((item: IRestaurante) => (
         <Restaurante restaurante={item} key={item.id} />
       ))}
-      {proximaPagina && <button onClick={readMore}>Ver mais</button>}
+      {data?.next && <button onClick={readMore}>Ver mais</button>}
     </section>
   );
 };
