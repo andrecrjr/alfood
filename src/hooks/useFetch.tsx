@@ -24,6 +24,7 @@ const useFetch = <T,>(): IUseFetch<T> => {
       return data;
     } catch (error) {
       setIsLoading(false);
+      throw new Error("Problem");
     }
   };
 

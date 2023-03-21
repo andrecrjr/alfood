@@ -5,6 +5,7 @@ import RestaurantAdmin from "./paginas/Admin/RestaurantAdmin/RestaurantAdmin";
 import RestaurantForm from "./paginas/Admin/RestaurantAdmin/RestaurantForm";
 import BasePage from "./paginas/Admin/BasePage";
 import PlateAdmin from "./paginas/Admin/PlateAdmin/PlateAdmin";
+import PlateForm from "./paginas/Admin/PlateAdmin/PlateForm";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="restaurants/new" element={<RestaurantForm />} />
         <Route path="restaurants/:id" element={<RestaurantForm />} />
         <Route path="plates" element={<PlateAdmin />} />
+        <Route path="plates/:id" element={<PlateForm />} />
       </Route>
     </Routes>
   );
