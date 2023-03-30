@@ -27,7 +27,7 @@ const PlateForm = () => {
   }>();
   const { response: restauranteData, fetchData: getRestaurant } =
     useFetch<IRestaurante[]>();
-  const [plateName, setPlateName] = useState(plateData?.nome || "");
+  const [plateName, setPlateName] = useState("");
   const [plateDescription, setDescription] = useState("");
   const [tags, setTag] = useState<string>("");
   const [restaurantId, setRestaurantId] = useState<string>("");
@@ -59,7 +59,7 @@ const PlateForm = () => {
         },
         data: formData,
       });
-      alert("Prato succesfull added!");
+      alert(`Dish succesfull ${(isEditionPage && "edited") || "added"}!`);
     } catch (error) {
       console.log(error);
       alert("Error in Plate Form");
@@ -122,7 +122,7 @@ const PlateForm = () => {
             onChange={(e) => setPlateName(e.target.value)}
             variant="standard"
             fullWidth
-            value={plateName}
+            value={plateName || plateData?.nome}
             margin={"dense"}
             required
           />

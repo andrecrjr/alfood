@@ -8,6 +8,7 @@ interface IUseFetch<T> {
   fetchData: (url: string, options?: object) => Promise<void>;
   options?: AxiosRequestConfig;
   isLoading: boolean;
+  error: { status: boolean; message: string };
 }
 const useFetch = <T,>(): IUseFetch<T> => {
   const [response, setResponse] = useState(null);
@@ -38,7 +39,7 @@ const useFetch = <T,>(): IUseFetch<T> => {
     }
   };
 
-  return { response, isLoading, fetchData };
+  return { response, isLoading, fetchData, error };
 };
 
 export default useFetch;
