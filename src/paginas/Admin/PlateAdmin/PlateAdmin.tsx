@@ -33,7 +33,7 @@ const PlateAdmin = () => {
     //sync with update or deletion
     platesResp && platesResp.length > 0 && setPlates(platesResp);
   }, [platesResp]);
-  
+
   return (
     <TableContainer component={Paper}>
       <Table>
