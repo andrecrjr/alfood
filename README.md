@@ -7,6 +7,9 @@ O Alfood é um site que lista restaurantes e pratos do menu.
 
 <img src="screencapture.png" alt="Imagem do Alfood" width="50%">
 
+## Repositório Back-end
+Para funcionar a aplicação é necessário expor a API feita para o curso, clone ela no github e rode-a
+com `docker-compose up`: <a href="https://github.com/alura-cursos/restaurantes_api">Restaurante API</a>
 
 ## 🔨 Funcionalidades do projeto
 
@@ -31,3 +34,4 @@ Depois, acesse <a href="http://localhost:3000/">http://localhost:3000/</a> no se
 ## 📚 Mais informações do curso
 
 Busque na plataforma da Alura o curso **Integrando seu projeto React com APIs** publicado na Escola Frontend.
+
